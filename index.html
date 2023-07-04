@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 30vh;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+<div class="square"></div>
+<button onclick="handleButtonClick()">Click Me</button>
+
+<script>
+    function handleButtonClick() {
+        const startTime = new Date().getTime();
+        const targetDelay = 2000;
+        while (new Date().getTime() - startTime < targetDelay) {}
+    }
+
+    function moveSquare() {
+        const square = document.querySelector('.square');
+        let positionY = 0;
+        let goingDown = true;
+
+        function animate() {
+            if (goingDown) {
+                positionY += 2; // Move down by 2 pixels
+                square.style.transform = `translateY(${positionY}px)`;
+
+                if (positionY >= 20) {
+                    goingDown = false; // Change direction when reaching 20px down
+                }
+            } else {
+                positionY -= 2; // Move up by 2 pixels
+                square.style.transform = `translateY(${positionY}px)`;
+
+                if (positionY <= 0) {
+                    goingDown = true; // Change direction when reaching the original position
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate(); // Start the animation
+    }
+
+    // Call the animation function
+    moveSquare();
+</script>
+</body>
+</html>
