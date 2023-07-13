@@ -25,46 +25,37 @@
     </style>
 </head>
 <body>
-<div class="square"></div>
-<button onclick="handleButtonClick()">Click Me</button>
+    <div class="square"></div>
+    <button onclick="handleButtonClick()">Click Me</button>
 
-<script>
-    function handleButtonClick() {
-        const startTime = new Date().getTime();
-        const targetDelay = 2000;
-        while (new Date().getTime() - startTime < targetDelay) {}
-    }
-
-    function moveSquare() {
-        const square = document.querySelector('.square');
-        let positionY = 0;
-        let goingDown = true;
-
-        function animate() {
-            if (goingDown) {
-                positionY += 2; // Move down by 2 pixels
-                square.style.transform = `translateY(${positionY}px)`;
-
-                if (positionY >= 20) {
-                    goingDown = false; // Change direction when reaching 20px down
-                }
-            } else {
-                positionY -= 2; // Move up by 2 pixels
-                square.style.transform = `translateY(${positionY}px)`;
-
-                if (positionY <= 0) {
-                    goingDown = true; // Change direction when reaching the original position
-                }
-            }
-
-            requestAnimationFrame(animate);
+    <script>
+        function handleButtonClick() {
+            // time-consuming business logic
+            const startTime = new Date().getTime();
+            const targetDelay = 2000;
+            while (new Date().getTime() - startTime < targetDelay) {}
         }
 
-        animate(); // Start the animation
-    }
+        function moveSquare() {
+            const square = document.querySelector('.square');
+            let positionY = 0;
+            let goingDown = true;
 
-    // Call the animation function
-    moveSquare();
-</script>
+            function animate() {
+                positionY += goingDown ? 1 : -1;
+                square.style.transform = `translateY(${positionY}px)`;
+
+                if (positionY >= 20 || positionY <= 0) {
+                    goingDown = !goingDown;
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        moveSquare();
+    </script>
 </body>
 </html>
